@@ -1,0 +1,31 @@
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+#coordinates {
+    position: absolute;
+    z-index: 100;
+    width: 80px;
+    color: #FFFFFF;
+    background: #FF0000;
+}
+
+#image {
+    position: absolute;
+    z-index: -1;
+}
+
+#change-me-paw {
+    position: absolute;
+    z-index: 0;
+    top: 10px;
+    right: 10px;
+}
+
+#write-me-something-beautiful {
+    position: absolute;
+    z-index: 1;
+    bottom: 30px;
+    left: 10px;
+}

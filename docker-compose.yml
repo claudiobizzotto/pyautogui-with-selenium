@@ -1,0 +1,34 @@
+version: "3"
+services:
+  selenium-hub:
+    image: selenium/hub:3.141.59-20200409
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+  selenium-chrome:
+    depends_on:
+      - selenium-hub
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        SELENIUM_ARTIFACTS_DIR: /ilovemepaws/artifacts
+    container_name: selenium-chrome
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    volumes:
+      - /dev/shm:/dev/shm # Selenium container requirement
+      - /etc/localtime:/etc/localtime:ro # Use host's DST and timezone in container
+      - ~/.Xauthority:/home/seluser/.Xauthority # Share host's X server with container
+      - ./artifacts:/ilovemepaws/artifacts # Selenium's snapshots etc. will be stored in this directory
+      - ./ilovemepaws:/ilovemepaws/ilovemepaws # Allows script updates in real time
+  i-love-me-paws:
+    build:
+      context: .
+      dockerfile: ./tests/Dockerfile
+    container_name: i-love-me-paws
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./tests:/var/www

@@ -1,0 +1,4 @@
+.venv
+artifacts/*
+!artifacts/.gitkeep
+*.code-workspace
